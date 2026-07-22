@@ -1,12 +1,11 @@
 import { ErrorRequestHandler, NextFunction, Request, Response } from "express";
 
 import { ZodError } from "zod";
-import { handleValidationError } from "../../errors/handleValidationError";
-import ApiError from "../../errors/AppError";
-import { errorLogger } from "../../share/logger";
-import { IGenericMessage } from "../modules/commonInterface/IGenericMessage";
-import handleZodError from "../../errors/handleZodError";
-import handleCastError from "../../errors/handleCastError";
+import ApiError from "../errors/ApiError";
+import { IGenericMessage } from "../commonInterface/IGenericMessage";
+import { handleValidationError } from "../errors/handleValidationError";
+import handleZodError from "../errors/handleZodError";
+import handleCastError from "../errors/handleCastError";
 
 const globalErrorHandler: ErrorRequestHandler = (
   error,
@@ -16,7 +15,8 @@ const globalErrorHandler: ErrorRequestHandler = (
 ) => {
   process.env.NODE_ENV === "development"
     ? console.log(`🐱‍🏍 globalErrorHandler ~~`, { error })
-    : errorLogger.error(`🐱‍🏍 globalErrorHandler ~~`, error);
+    : "";
+  // errorLogger.error(`🐱‍🏍 globalErrorHandler ~~`, error);
 
   let statusCode = 500;
   let message = "Something went wrong !";
