@@ -14,7 +14,49 @@ const createStudent = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const getAllStudent = catchAsync(async (req: Request, res: Response) => {
+  const result = await studentService.getAllStudents();
+  sendResponse<IStudent[]>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Student retrive successfully",
+    data: result,
+  });
+});
+const getSingleStudent = catchAsync(async (req: Request, res: Response) => {
+  const result = await studentService.getSingleStudent(req.params.id as string);
+  sendResponse<IStudent>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Student retrive successfully",
+    data: result,
+  });
+});
+const deleteStudent = catchAsync(async (req: Request, res: Response) => {
+  const result = await studentService.deleteStudent(req.params.id as string);
+  sendResponse<IStudent>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Student delete successfully",
+    data: result,
+  });
+});
+const updateStudent = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const payload = req.body;
+  const result = await studentService.updateStudent(id as string, payload);
+  sendResponse<IStudent>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Student delete successfully",
+    data: result,
+  });
+});
 
 export const studentController = {
   createStudent,
+  getAllStudent,
+  getSingleStudent,
+  deleteStudent,
+  updateStudent,
 };

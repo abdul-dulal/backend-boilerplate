@@ -9,4 +9,8 @@ router.post(
   validateRequest(createStudentZodSchema as any),
   studentController.createStudent,
 );
+router.get("/", studentController.getAllStudent);
+router.get("/:id", studentController.getSingleStudent);
+router.delete("/:id", studentController.deleteStudent);
+
 export const studentRoutes = router;
