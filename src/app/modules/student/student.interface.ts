@@ -4,3 +4,14 @@ export type IStudent = {
   age: number;
   studentId: number;
 };
+
+export type IPaginationOptions = {
+  page?: number;
+  limit?: number;
+  sortBy?: string;
+  sortOrder?: "asc" | "desc";
+};
+
+export type IStudentFilters = {
+  searchTerm?: string;
+};
