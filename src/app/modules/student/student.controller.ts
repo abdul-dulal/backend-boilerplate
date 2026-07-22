@@ -1,21 +1,19 @@
-import { RequestHandler } from "express";
+import { Request, Response } from "express";
 import { studentService } from "./student.service";
+import catchAsync from "../../share/catchAsync";
+import httpStatus from "http-status";
+import sendResponse from "../../share/sendResponse";
+import { IStudent } from "./student.interface";
 
-const createStudent: RequestHandler = async (req, res) => {
-  try {
-    const result = await studentService.createStudent(req.body);
-    res.json({
-      success: true,
-      message: "Student created successfully",
-      data: result,
-    });
-  } catch (error: any) {
-    res.json({
-      success: false,
-      message: error.message,
-    });
-  }
-};
+const createStudent = catchAsync(async (req: Request, res: Response) => {
+  const result = await studentService.createStudent(req.body);
+  sendResponse<IStudent>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Student created successfully",
+    data: result,
+  });
+});
 
 export const studentController = {
   createStudent,
