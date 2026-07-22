@@ -7,18 +7,13 @@ import {
   IStudentFilters,
 } from "./student.interface";
 import { studentModel } from "./student.model";
+import { studentSearchableFields } from "./constant";
 
 const createStudent = async (payload: IStudent) => {
   const result = await studentModel.create(payload);
   return result;
 };
 
-// const getAllStudents = async (paginationOptions: IPaginationOptions) => {
-//   const { page, limit, skip, sortBy, sortOrder } =
-//     paginationHelpers.calculatePagination(paginationOptions);
-//   const result = await studentModel.find();
-//   return result;
-// };
 const getAllStudents = async (
   filters: IStudentFilters,
   paginationOptions: IPaginationOptions,
@@ -32,16 +27,16 @@ const getAllStudents = async (
   const andConditions = [];
 
   // Search needs $or for searching in specified fields
-  // if (searchTerm) {
-  //   andConditions.push({
-  //     $or: academicFacultySearchableFields.map((field) => ({
-  //       [field]: {
-  //         $regex: searchTerm,
-  //         $options: "i",
-  //       },
-  //     })),
-  //   });
-  // }
+  if (searchTerm) {
+    andConditions.push({
+      $or: studentSearchableFields.map((field) => ({
+        [field]: {
+          $regex: searchTerm,
+          $options: "i",
+        },
+      })),
+    });
+  }
 
   // Filters needs $and to fullfill all the conditions
 
