@@ -19,10 +19,11 @@ const createStudent = catchAsync(async (req: Request, res: Response) => {
 
 const getAllStudent = catchAsync(async (req: Request, res: Response) => {
   const filters = pick(req.query, studentFilterableFields);
+
   const paginationOptions = pick(req.query, paginationFields);
   const result = await studentService.getAllStudents(
-    paginationOptions,
     filters,
+    paginationOptions,
   );
   sendResponse<IStudent[]>(res, {
     statusCode: httpStatus.OK,
