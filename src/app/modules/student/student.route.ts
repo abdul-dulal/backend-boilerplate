@@ -11,7 +11,7 @@ router.post(
   studentController.createStudent,
 );
 router.get("/", authGuard("student"), studentController.getAllStudent);
-router.get("/:id", studentController.getSingleStudent);
+router.get("/:id", authGuard("student"), studentController.getSingleStudent);
 router.delete("/:id", studentController.deleteStudent);
 
 export const studentRoutes = router;
