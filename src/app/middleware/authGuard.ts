@@ -21,11 +21,12 @@ const authGuard =
         process.env.JWT_SECRET as Secret,
       );
 
-      //   req.user = verifiedUser; // role  , userid
+      req.user = verifiedUser; // role  , userid
+      console.log(verifiedUser);
 
       // role diye guard korar jnno
       if (requiredRoles.length && !requiredRoles.includes(verifiedUser.role)) {
-        throw new ApiError(httpStatus.FORBIDDEN, "Forbidden");
+        throw new ApiError(httpStatus.FORBIDDEN, "Test");
       }
       next();
     } catch (error) {

@@ -25,15 +25,15 @@ const loginUser = async (payload: ILoginUser) => {
   if (isUserExist.password && !isPasswordMatched) {
     throw new ApiError(httpStatus.UNAUTHORIZED, "Password is incorrect");
   }
-  const { email: userEmail } = isUserExist;
+  const { email: userEmail, role } = isUserExist;
   const accessToken = jwtHelpers.createToken(
-    { name: "dulal", email: userEmail },
+    { role, email: userEmail },
     process.env.JWT_SECRET as Secret,
     process.env.JWT_EXPIRES_IN as string,
   );
 
   const refreshToken = jwtHelpers.createToken(
-    { name: "dulal", email: userEmail },
+    { role, email: userEmail },
     process.env.JWT_REFRESH_SECRET as Secret,
     process.env.JWT_REFRESH_EXPIRES_IN as string,
   );
