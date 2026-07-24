@@ -1,9 +1,9 @@
-import z, { email } from "zod";
+import z from "zod";
 
 export const createUserZodSchema = z.object({
   body: z.object({
-    name: z.string({
-      error: "name is required",
+    role: z.string({
+      error: "role is required",
     }),
     email: z.string({
       error: "email is required",

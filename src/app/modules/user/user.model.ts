@@ -3,12 +3,12 @@ import bcrypt from "bcrypt";
 
 const userSchema = new Schema(
   {
-    name: {
+    role: {
       type: String,
-      required: [true, "Name is required"],
+      required: [true, "role is required"],
     },
     email: { type: String, required: true },
-    password: { type: String, required: true, select: false },
+    password: { type: String, required: true },
   },
   {
     timestamps: true,
